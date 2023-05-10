@@ -1,11 +1,9 @@
 const fs = require("fs");
 
 const append = function (logFile, logs, todayLog) {
-  let newLog = "";
-
-  newLog += logs;
-  newLog += "\n";
+  let newLog = logs;
   newLog += todayLog;
+  newLog += "\n";
 
   fs.writeFileSync(logFile, newLog);
 }
