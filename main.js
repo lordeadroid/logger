@@ -1,23 +1,22 @@
 const fs = require("fs");
 
-const append = function (logFile, logs, today, todayLog) {
-  let newLog = logs;
-  newLog += today + " : ";
-  newLog += todayLog;
-  newLog += "\n";
+const getTimeStamp = () => {
+  const date = new Date();
+  return `${date.toDateString()}`;
+};
 
-  fs.writeFileSync(logFile, newLog);
-}
+const logData = function (logFile, entryToLog) {
+  fs.appendFileSync(logFile, entryToLog);
+};
 
 const main = function () {
   const logFile = "log.txt";
   const logs = fs.readFileSync(logFile, "utf-8");
+  const dataLog = process.argv[2];
+  const timeStamp = getTimeStamp();
+  const entryToLog = `${timeStamp} : ${dataLog}\n`;
 
-  const date = new Date();
-  const today = `${date.toDateString()}`;
-
-  const todayLog = process.argv[2];
-  append(logFile, logs, today, todayLog);
+  logData(logFile, entryToLog);
 }
 
 main();
