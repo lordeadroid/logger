@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { config } = require("process");
 
 const getTimeStamp = () => {
   const date = new Date();
@@ -8,18 +7,13 @@ const getTimeStamp = () => {
 
 const isNewDay = () => {
   const configFile = fs.readFileSync("./.config", "utf-8");
-  const config = JSON.parse(configFile);
-  const referenceTime = config.date;
-  const day = 864000000;
+  const {date} = JSON.parse(configFile);
   const today = new Date();
-  const currentTime = today.getTime();
 
-  return currentTime - referenceTime > day;
+  return date === today.getDate();
 };
 
-const logData = function (logFile, entryToLog) {
-  fs.appendFileSync(logFile, entryToLog);
-};
+const logData = (logFile, entryToLog) => fs.appendFileSync(logFile, entryToLog);
 
 const main = function () {
   const logFile = "log.txt";
@@ -29,5 +23,6 @@ const main = function () {
   const entryToLog = `${timeStamp} : ${dataLog}\n`;
 
   logData(logFile, entryToLog);
-}
-console.log(isNewDay());
+};
+
+main();
