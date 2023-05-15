@@ -12,13 +12,13 @@ const getTimeStamp = () => {
   const currentDate = today.toDateString();
 
   if (isSameDay(date, currentDate)) {
-    return `\t\t->`;
+    return `\t->`;
   }
 
   config.date = currentDate;
   fs.writeFileSync(configFile, JSON.stringify(config));
   
-  return `\n${currentDate} :\n\t\t->`;
+  return `\n${currentDate} :\n\t->`;
 };
 
 const main = () => {
